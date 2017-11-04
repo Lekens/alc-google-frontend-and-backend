@@ -1,0 +1,143 @@
+<div *ngIf="listStudent">
+  <div class="box-header with-border">
+  <h3 class="box-title">List Students Information</h3>
+</div>
+<div class="box-body">
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>
+          S/N
+        </th>
+        <th>
+          FirstName
+        </th>
+        <th>
+          LastName
+        </th>
+        <th>
+          Matric No
+        </th>
+        <th>
+          Email
+        </th>
+        <th>
+          Level
+        </th>
+        <th>
+          Course
+        </th>
+        <th>
+          Department
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of listOfStudent; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ student.firstname }}</td>
+        <td>{{ student.lastname }}</td>
+        <td>{{ student.matric_no }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.level }}</td>
+        <td>{{ student.course }}</td>
+        <td>{{ student.department }}</td>
+        <td><span>
+                <a href="javascript:void(0)" class="btn btn-info btn-sm" (click)="editStudentProperty(student)"><i class="fa fa-pencil"></i></a>
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm" (click)="deleteStudent(student)"><i class="fa fa-remove"></i></a>
+              </span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<div *ngIf="editStudent">
+<div class="">
+  <div class="box-header with-border">
+    <h3 class="box-title"><i class="fa fa-user"></i> &nbsp;&nbsp;&nbsp;Update Student Record</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form role="form" novalidate [formGroup]="studentInfo" method="post" (submit)="updateStudent()">
+    <div class="box-body">
+      <div class="col-md-6">
+        <label for="Lastname">Lastname</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="Lastname" placeholder="Lastname here..." formControlName="lastname" [(ngModel)]="student.lastname">
+          <span class="input-group-addon">
+              <i class="fa fa-remove" style="color: red" *ngIf="studentInfo.get('lastname').errors && (studentInfo.get('lastname').dirty || studentInfo.get('lastname').touched)"></i>
+              <i class="fa fa-check" style="color: green" *ngIf="!studentInfo.get('lastname').errors && (studentInfo.get('lastname').dirty || studentInfo.get('lastname').touched)" ></i>
+            </span>
+          <!--<span class="input-group-addon"><i class="fa fa-envelope"></i></span>-->
+        </div>
+        <label for="Firstname">Firstname</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="Firstname" placeholder="Firstname here..." formControlName="firstname" [(ngModel)]="student.firstname">
+          <span class="input-group-addon">
+              <i class="fa fa-remove" style="color: red" *ngIf="studentInfo.get('firstname').errors && (studentInfo.get('firstname').dirty || studentInfo.get('firstname').touched)"></i>
+              <i class="fa fa-check" style="color: green" *ngIf="!studentInfo.get('firstname').errors && (studentInfo.get('firstname').dirty || studentInfo.get('firstname').touched)" ></i>
+            </span>
+        </div>
+        <label for="level">Current Level</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="level" placeholder="Current Level here..." formControlName="level" [(ngModel)]="student.level">
+          <span class="input-group-addon">
+              <i class="fa fa-remove" style="color: red" *ngIf="studentInfo.get('level').errors && (studentInfo.get('level').dirty || studentInfo.get('level').touched)"></i>
+              <i class="fa fa-check" style="color: green" *ngIf="!studentInfo.get('level').errors && (studentInfo.get('level').dirty || studentInfo.get('level').touched)" ></i>
+            </span>
+        </div>
+        <label for="Department">Department</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="Department" placeholder="Student Department here..."  formControlName="department" [(ngModel)]="student.department">
+          <span class="input-group-addon">
+              <i class="fa fa-remove" style="color: red" *ngIf="studentInfo.get('department').errors && (studentInfo.get('department').dirty || studentInfo.get('department').touched)"></i>
+              <i class="fa fa-check" style="color: green" *ngIf="!studentInfo.get('department').errors && (studentInfo.get('department').dirty || studentInfo.get('department').touched)" ></i>
+            </span>
+        </div>
+
+
+      </div>
+      <div class="col-md-6">
+        <label for="MatricNo">Matric Number</label>
+        <div class="input-group">
+          <input type="email" class="form-control" id="MatricNo" placeholder="Matric Number here..."  formControlName="matric_no" [(ngModel)]="student.matric_no">
+          <span class="input-group-addon">
+              <i class="fa fa-remove" style="color: red" *ngIf="studentInfo.get('matric_no').errors && (studentInfo.get('matric_no').dirty || studentInfo.get('matric_no').touched)"></i>
+              <i class="fa fa-check" style="color: green" *ngIf="!studentInfo.get('matric_no').errors && (studentInfo.get('matric_no').dirty || studentInfo.get('matric_no').touched)" ></i>
+            </span>
+        </div>
+        <label for="email">Email Address</label>
+        <div class="input-group">
+          <input type="email" class="form-control" id="email" placeholder="Email Address here..." formControlName="email" [(ngModel)]="student.email">
+          <span class="input-group-addon">
+              <i class="fa fa-remove" style="color: red" *ngIf="studentInfo.get('email').errors  && (studentInfo.get('email').dirty || studentInfo.get('email').touched && studentInfo.get('email').hasError('pattern'))"></i>
+              <i class="fa fa-check" style="color: green" *ngIf="!studentInfo.get('email').errors && (studentInfo.get('email').dirty || studentInfo.get('email').touched && !studentInfo.get('email').hasError('pattern'))" ></i>
+            </span>
+        </div>
+        <label for="Course">Course</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="Course" placeholder="Student Course here..." formControlName="course" [(ngModel)]="student.course">
+          <span class="input-group-addon">
+              <i class="fa fa-remove" style="color: red" *ngIf="studentInfo.get('course').errors && (studentInfo.get('course').dirty || studentInfo.get('course').touched)"></i>
+              <i class="fa fa-check" style="color: green" *ngIf="!studentInfo.get('course').errors && (studentInfo.get('course').dirty || studentInfo.get('course').touched)" ></i>
+            </span>
+        </div>
+      </div></div>
+    <!-- /.box-body -->
+
+    <div class="box-footer">
+      <div style="margin-left: 40%">
+        <button type="submit" class="btn btn-info" [disabled]="!studentInfo.valid"><i class="fa fa-upload"></i>&nbsp;&nbsp;Update</button></div>
+    </div>
+  </form>
+  <!--<p>Student {{student | json}}</p>-->
+</div>
+<!-- /.box -->
+</div>
+

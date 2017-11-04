@@ -1,0 +1,37 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Welcome Arokoyu, Olalekan
+    </h1>
+
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+<app-list-student *ngIf="isListAll"></app-list-student>
+      <app-add-student *ngIf="isAddStudent"></app-add-student>
+      <div class="box-footer">
+        <div *ngIf="isListAll">
+          <span class="pull-right">
+            <a href="javascript:void(0)" class="btn btn-success btn-sm" (click)="addStudent()"><i class="fa fa-plus"></i> &nbsp;&nbsp;Add New Student</a>
+          </span>
+          <span class="pull-left">
+            <a href="javascript:void(0)" class="btn btn-danger btn-sm" (click)="deleteAllStudent()"><i class="fa fa-recycle"></i> &nbsp;&nbsp;Delete All Students</a>
+          </span>
+        </div>
+        <div *ngIf="isAddStudent">
+          <span class="pull-right" >
+            <a href="javascript:void(0)" class="btn btn-info btn-sm" (click)="viewStudent()"><i class="fa fa-eye"></i> &nbsp;&nbsp;View All Students</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- /.box -->
+
+  </section>
+  <!-- /.content -->
+</div>
